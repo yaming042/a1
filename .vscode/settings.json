@@ -1,0 +1,37 @@
+{
+    /* ESLint ->Start */
+    "eslint.alwaysShowStatus": true,
+    "eslint.enable": true, // eslint检验开关, 关闭需要显示定义false值
+    "eslint.format.enable": true, // 启用 ESLint 作为已验证文件的格式化程序
+    // 添加支持类型校验
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "html"
+    ],
+    /* ESLint ->End */
+    "eslint.options": {
+        "extensions": [".js", ".ts", ".tsx", "jsx", "html"]
+    },
+    "editor.codeActionsOnSave": {
+        // 保存时使用eslint进行格式化
+        "source.fixAll.eslint": true
+    },
+    "cSpell.words": [
+        "antd",
+        "antv",
+        "Cascader",
+        "fullhash",
+        "iconfont",
+        "jsencrypt",
+        "jsoneditor",
+        "rulengine",
+        "RULESET",
+        "Sider",
+        "sortablejs",
+        "Topbar",
+        "uuidv"
+    ],
+    "livePreview.defaultPreviewPath": "/Users/tianyaming/Desktop/index.html"
+}

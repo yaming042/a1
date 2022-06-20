@@ -1,0 +1,34 @@
+{
+    "port": 3111,
+    "apiPrefix": "/api",
+    "apiProxy": "http://localhost:3333",
+    "publicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsD1gI70BxYujhNw8NpaVKRXkcRofoeUbN9Dj5m3i3h9XAIS6LkjI01L4ieRpTHnMEzoXUY8a2/svDf//xuHuDJlZBNtCXK4DPx5x4zHdUWDjFGpWlMQzhsqQlfs0tkN5gP095g27L0ki/NrRuBpgxP1q2dHKpL37sBF8XNRpedwIDAQAB",
+
+    "webConfig": {
+        "baseUrl": "http://localhost:3333"
+    },
+
+    "mysql": {
+        "host": "localhost",
+        "port": "3306",
+        "user": "root",
+        "password": "root",
+        "database": "a1"
+    },
+    "redis": {
+        "host": "localhost",
+        "port": 6379
+    },
+
+    "mailer": {
+        "user": "ymideakf@163.com",
+        "pass": "01012991ming",
+        "from": "ymideakf@163.com"
+    },
+
+    "timeLimit": {
+        "userValidateTime": 86400,
+        "oauthCodeTime": 60,
+        "userLoginTime": 86400
+    }
+}
