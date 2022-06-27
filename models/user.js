@@ -5,7 +5,7 @@ const config = require('./../routes/config');
 class User {
     constructor(table) {
         this.table = table;
-        this.fields = ['id', 'uid', 'email', 'phone', 'username', 'password', 'company', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at']
+        this.fields = ['id', 'uid', 'email', 'phone', 'username', 'password', 'company', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
     }
 
     // 获取用户列表
@@ -63,7 +63,7 @@ class User {
         let sql = "DELETE FROM `user` WHERE `uid`=" + id;
         return new Promise((resolve, reject) => {
             mysql.query(sql, (error, result, fields) => {
-                if (error) return resolve(errorJson);
+                if (error) return resolve(config.responseError.modelError);
                 resolve({id: id});
             });
         });

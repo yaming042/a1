@@ -4,17 +4,6 @@ const MailModel = require('./../models/mail');
 const {RedisSet, RedisGet, RedisDelete} = require('./../models/redis');
 const config = require('./../config/config.json');
 
-// 辅助方法
-const hashCode = (str='') => {
-    let hash = 0;
-    if (str.length > 0) {
-        for (let i = 0; i < str.length; i++) {
-            hash = 31 * hash + str.charCodeAt(i);
-            hash |= 0;
-        }
-    }
-    return hash & 0x7fffffff;
-};
 // 发送激活链接，将uid和激活码code存进redis
 const sendActiveLink = async (uid, email) => {
     let success = true;
@@ -41,7 +30,7 @@ const sendActiveLink = async (uid, email) => {
 };
 
 const handleResponse = (input) => {
-    if(typeof(input) === 'object' && input.status !== 0) {
+    if(Object.prototype.toString.call(input) === '[object Object]' && input.hasOwnProperty('status')) {
         return input;
     }
     return {status: 0, data: input, message: 'success'};
