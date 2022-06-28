@@ -1,0 +1,44 @@
+.container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    height: 100%;
+
+    .header{
+        position: relative;
+        width: 100%;
+        flex: 1;
+        margin-bottom: 12px;
+    }
+
+    .search{
+        position: relative;
+        width: 100%;
+        flex: 1;
+        margin-bottom: 12px;
+    }
+
+    .content{
+        position: relative;
+        width: 100%;
+        flex: 22;
+        margin-bottom: 12px;
+
+        .table-opt-td{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & > button{
+                margin: 0 5px;
+            }
+        }
+    }
+
+    .foofer{
+        position: relative;
+        width: 100%;
+        flex: 1;
+    }
+}

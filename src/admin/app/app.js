@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {Layout, Spin} from 'antd';
+import {Layout, Spin, message} from 'antd';
 import styles from './app.scss';
 import SiderComponent from './components/Layout/Sider';
 import HeaderComponent from './components/Layout/Header';
@@ -16,8 +16,6 @@ import Forbidden from '@commonUtils/Forbidden';
 
 const AdminLayout = (props) => {
     const {loading, collapsed, routers=[]} = props || {};
-
-    console.log(1, routers);
 
     return (
         <Layout style={{height: '100%'}}>
@@ -55,7 +53,7 @@ class App extends React.Component {
         super();
         this.state = {
             routers: [],
-            appLoading: false,
+            appLoading: true,
         };
     }
 
@@ -83,7 +81,7 @@ class App extends React.Component {
             request(`/validate`).then(response => {
                 resolve(response);
             }).catch(error => {
-
+                message.error(error.message);
             });
         });
     }
@@ -95,16 +93,22 @@ class App extends React.Component {
         const adminProps = {loading: appLoading, routers, collapsed};
 
         return (
-            <Router>
-                <Switch>
-                    <Route path="/login" exact component={Login} />
-                    <Route path="/404" exact component={NotFound} />
-                    <Route path="/403" exact component={Forbidden} />
-                    <Route path={'/admin'} render={props => <AdminLayout {...props} {...adminProps} />} />
-                    <Redirect from="/" to="/admin/users" />
-                </Switch>
-                
-            </Router>
+            <>
+                {
+                    appLoading ?
+                        null
+                        :
+                        <Router>
+                            <Switch>
+                                <Route path="/login" exact component={Login} />
+                                <Route path="/404" exact component={NotFound} />
+                                <Route path="/403" exact component={Forbidden} />
+                                <Route path={'/admin'} render={props => <AdminLayout {...props} {...adminProps} />} />
+                                <Redirect exact path="/" to="/admin/users" />
+                            </Switch>
+                        </Router>
+                }
+            </>
         );
     }
 }

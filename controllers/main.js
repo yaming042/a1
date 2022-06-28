@@ -5,7 +5,7 @@ let {RedisSet, RedisGet, RedisDelete} = require('../models/redis');
 const {timeLimit} = require('./../config/config.json');
 
 const handleResponse = (input) => {
-    if(typeof(input) === 'object' && input.hasOwnProperty('status')) {
+    if(Object.prototype.toString.call(input) === '[object Object]' && input.hasOwnProperty('status')) {
         return input;
     }
     return {status: 0, data: input, message: 'success'};
@@ -41,8 +41,8 @@ class MainController{
                 const sessionId = md5(uid).toString();
                 // 设置新的 session id
                 RedisSet(sessionId, username, timeLimit.userLoginTime);
-                // 设置 cookie
-                res.cookie('SESSIONID', sessionId, {httpOnly: true, maxAge: timeLimit.userLoginTime});
+                // 设置 cookie，maxAge最大失效时间（毫秒），设置在多少后失效
+                res.cookie('SESSIONID', sessionId, {httpOnly: true, maxAge: timeLimit.userLoginTime*1000});
             }
         }
         res.json(handleResponse(ret));

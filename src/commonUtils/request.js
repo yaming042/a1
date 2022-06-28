@@ -1,11 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
-import {CookieUtil} from './utils';
 
 export default function request(url, options = {}) {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-
     const isJson = options.contentType === 'application/json';
     let ajaxOption = {
         url,
@@ -17,33 +13,28 @@ export default function request(url, options = {}) {
         data: isJson ? JSON.stringify(options.data || {}) : qs.stringify(options.data || {}), // 'PUT', 'POST', 和 'PATCH'时body的参数
         timeout: options.timeout || 30000, // 超时时间 30 秒
         responseType: options.responseType || 'json', // 表示服务器响应的数据类型
-        cancelToken: source.token
     };
 
     return new Promise((resolve, reject) => {
         axios(ajaxOption)
-            .then(({data = {}, status}) => { // data就是后端接口返回的整体
-                if(status === 200) {
-                    const {status: responseStatus, message} = data;
-
-                    if(responseStatus === 400) { // 未登录
-                        if(location.pathname === '/login') {
-                            return resolve(null);
-                        }
-                        window.location.href = `/login?redirect=${encodeURIComponent(location.href)}`;
-                    }else{
-                        return resolve(data);
+            .then(({data, status}) => { // data就是后端接口返回的整体
+                if(200 === status) {
+                    const {status} = data || {};
+                    if(400 === status) {
+                        // 未登录
+                        // window.location.href = `/login?redirect=${encodeURIComponent(location.href)}`;
+                        window.location.href = `/login`;
+                        return;
                     }
+                    resolve(data || {});
                 }else{
-                    source.cancel(`响应错误`);
-                    console.warn(`响应码: `, status);
-                    return resolve(null);
+                    // 非200响应码，说明不是前端想要的返回，请求出现了问题
+                    reject(`响应异常(response code: ${status})`);
                 }
             })
             .catch(error => {
-                source.cancel(`请求错误`);
                 console.error(error.message);
-                resolve(null);
+                reject(error.message || `请求异常`);
             });
     });
 }
