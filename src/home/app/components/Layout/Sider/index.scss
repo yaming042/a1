@@ -52,6 +52,7 @@
 
         .menu-list{
             position: relative;
+            overflow-x: hidden;
         }
 
         :global(.ant-menu){
