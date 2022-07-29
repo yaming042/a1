@@ -1,0 +1,31 @@
+.dialog-container{
+    position: relative;
+
+    .header{
+        position: relative;
+
+        .title{
+            position: relative;
+        }
+
+        .close{
+            position: relative;
+        }
+    }
+
+    .search{
+        position: relative;
+    }
+
+    .body{
+        position: relative;
+    }
+
+    .footer{
+        position: relative;
+
+        .button-group{
+            position: relative;
+        }
+    }
+}

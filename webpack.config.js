@@ -138,7 +138,7 @@ module.exports = {
             }
         ],
         compress: false,
-        port: 5656,
+        port: 5666,
         proxy: {
             '/api': {
                 changeOrigin: true,

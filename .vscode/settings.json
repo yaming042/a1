@@ -33,5 +33,8 @@
         "Topbar",
         "uuidv"
     ],
-    "livePreview.defaultPreviewPath": "/Users/tianyaming/Desktop/index.html"
+    "livePreview.defaultPreviewPath": "/Users/tianyaming/Desktop/index.html",
+    "jumpToAliasFile.alias": {
+        "@commonUtils": "/Users/tianyaming/Desktop/myself/a1/src/commonUtils"
+    }
 }

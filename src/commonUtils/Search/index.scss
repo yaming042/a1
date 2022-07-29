@@ -1,0 +1,143 @@
+.container{
+    position: relative;
+    width: 100%;
+
+    .search-list{
+        position: relative;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+           -moz-box-align: start;
+            -ms-flex-align: start;
+                align-items: flex-start;
+
+        .search-item{
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+               -moz-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            margin: 0 15px 15px 0;
+
+            .item-box{
+                position: relative;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                   -moz-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
+                border: 1px solid transparent;
+                height: 30px;
+                padding: 0 5px;
+                -webkit-transition: all 0.15s;
+                -o-transition: all 0.15s;
+                -moz-transition: all 0.15s;
+                transition: all 0.15s;
+                border-radius: 2px;
+
+                &:hover{
+                    cursor: pointer;
+                    border-color: #f0f0f0;
+                    background: #fafafa;
+                }
+                &.selected{
+                    border-color: #f0f0f0;
+                    background: #fafafa;
+                }
+
+                .label{
+                    position: relative;
+                    font-weight: 500;
+                    color: #000;
+                    white-space: nowrap;
+                    max-width: 80px;
+                    -o-text-overflow: ellipsis;
+                       text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                .input{
+                    position: relative;
+                    padding-left: 2px;
+                    white-space: nowrap;
+                    max-width: 140px;
+                    -o-text-overflow: ellipsis;
+                       text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+            }
+
+            .search-overlay{
+                color: red;
+            }
+        }
+
+        .more-search-item{
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+               -moz-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+
+            .more-search-item-box{
+                position: relative;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                   -moz-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
+                height: 30px;
+            }
+
+            .more-search-overlay{
+                color: red;
+
+                :global .ant-popover-content{
+                    .ant-popover-inner{
+                        width: 180px;
+                    }
+                }
+
+                .more-search-list{
+                    position: relative;
+                    max-height: 180px;
+                    overflow-y: auto;
+
+                    .item{
+                        position: relative;
+
+                        :global .ant-checkbox-wrapper{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
