@@ -108,7 +108,7 @@ export default class Users extends React.Component{
                 }).catch(e => {
                     message.error(`删除用户失败，`, e.message || '网络异常');
                     reject(e.message);
-                })
+                });
             });
         }
     }
