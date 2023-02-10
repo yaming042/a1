@@ -1,0 +1,47 @@
+.table-operation{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .disabled{
+        position: relative;
+    }
+
+    .more{
+        position: relative;
+    }
+
+    .menu{
+        position: relative;
+        width: 100px;
+        margin: 0;
+        padding: 4px 0;
+        text-align: left;
+        list-style-type: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border-radius: 2px;
+        outline: none;
+        box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+
+        .menu-item{
+            position: relative;
+            display: flex;
+            line-height: 14px;
+
+            i{
+                margin-right: 4px;
+            }
+        }
+    }
+
+    &>span, &>button, &>.more{
+        margin: 0 4px;
+    }
+
+    &>.more{
+        border-color: #1890ff;
+        color: #1890ff;
+    }
+}

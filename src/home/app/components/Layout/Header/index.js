@@ -43,21 +43,12 @@ class Comp extends React.Component {
 
         return (
             <div className={styles['header']}>
-                <Row gutter={10}>
-                    <Col span={24} className={`${styles['item']} ${styles['item-opt']}`}>
-                        <div className={styles['search']}>
-                            <div className={styles['input']}>
-                                <i className="iconfont icon-search"></i>
-                                <input type="text" placeholder="搜索" />
-                            </div>
-                        </div>
-                        <div className={styles['account']}>
-                            <Dropdown overlay={menu} trigger={['click']}>
-                                <Button shape="circle" type="primary">y</Button>
-                            </Dropdown>
-                        </div>
-                    </Col>
-                </Row>
+                <div className="logo">
+                    <a href="#">
+                        <img src={`/images/icon.png`} alt="AnyOne" />
+                        AnyOne
+                    </a>
+                </div>
             </div>
         );
     }

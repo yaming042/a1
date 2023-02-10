@@ -58,39 +58,31 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.initApp().then(response => {
-            this.setState({appLoading: false});
-            if(response && response.status === 0) {
-                this.setState({
-                    routers: (config.routeConfig || []).slice(0)
-                });
-            }
-        }).catch(error => {
-            this.setState({appLoading: false});
-        });
+        this.initApp();
     }
 
     // 初始化应用，请求权限相关的数据
-    initApp() {
-        const {pathname} = location;
-        return new Promise((resolve, reject) => {
-            if(pathname.indexOf('/login') === 0) {
-                return resolve(null);
-            }
-            request(`/validate`).then(response => {
-                resolve(response);
-            }).catch(error => {
-                message.error(error.message);
+    async initApp() {
+        let {pathname} = location,
+            response = null;
+
+        if(pathname.indexOf('/admin/login') !== 0) { //非登录页
+            response = await request(`/validate`);
+        }
+
+        this.setState({appLoading: false});
+        if(0 === response?.status) {
+            this.setState({
+                routers: (config.routeConfig || []).slice(0)
             });
-        });
+        }
     }
 
     render() {
-        const {appLoading, routers} = this.state;
-        const {collapsed} = this.props;
-        const {webConfig: {baseUrl=''}} = config || {};
-
-        const adminProps = {loading: appLoading, routers, collapsed};
+        let {appLoading, routers} = this.state,
+            {collapsed} = this.props,
+            {webConfig: {baseUrl=''}} = config || {},
+            adminProps = {loading: appLoading, routers, collapsed};
 
         return (
             <>
@@ -100,9 +92,9 @@ class App extends React.Component {
                         :
                         <Router>
                             <Switch>
-                                <Route path="/login" exact component={Login} />
-                                <Route path="/404" exact component={NotFound} />
-                                <Route path="/403" exact component={Forbidden} />
+                                <Route path={`${baseUrl}/login`} exact component={Login} />
+                                <Route path={`${baseUrl}/404`} exact component={NotFound} />
+                                <Route path={`${baseUrl}/403`} exact component={Forbidden} />
                                 <Redirect exact path={`${baseUrl}/`} to={`${baseUrl}/users`} />
                                 <Route path={baseUrl} render={props => <AdminLayout {...props} {...adminProps} />} />
                             </Switch>

@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 // 导入样式
 import styles from './index.scss';
 
-class Comp extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props);
 
@@ -30,16 +30,14 @@ class Comp extends React.Component {
         const {selectedBizId, bizList} = this.props;
         const {drawerOpen} = this.state;
         const menu = (
-            <Menu>
-                <Menu.Item key="0">
-                    <span>1st menu item</span>
-                </Menu.Item>
-                <Menu.Item key="1">
-                    <span>2nd menu item</span>
-                </Menu.Item>
-                <Menu.Divider />
-                <Menu.Item key="3">3rd menu item</Menu.Item>
-            </Menu>
+            <Menu
+                items={[
+                    {key: '0', label: <span>1st menu item</span>},
+                    {key: '1', label: <span>2st menu item</span>},
+                    {key: '2', type: 'divider'},
+                    {key: '3', label: <span>3st menu item</span>},
+                ]}
+            />
         );
 
         return (
@@ -79,4 +77,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comp);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

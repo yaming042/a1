@@ -7,6 +7,7 @@ import UserDetail from './components/UserDetail';
 import IconSvg from '@commonUtils/IconSvg';
 import request from '@commonUtils/request';
 import SearchComponent from '@commonUtils/Search';
+import TableOperation from '@commonUtils/TableOperation';
 import {ObjectUtil} from '@commonUtils/utils';
 
 const {confirm} = Modal;
@@ -204,14 +205,19 @@ export default class Users extends React.Component{
                     dataIndex: 'opt',
                     width: 100,
                     render: (text, record) => {
-                        return <div className={styles['table-opt-td']} onClick={this.deleteRecord.bind(this, record)}>
-                            <Button shape="circle" danger size="small">
-                                <IconSvg name="icon-delete" />
-                            </Button>
-                            <Button type="primary" shape="circle" size="small" onClick={this.editRecord.bind(this, record)}>
-                                <IconSvg name="icon-edit-2" />
-                            </Button>
-                        </div>;
+                        return <TableOperation
+                            onEdit={{
+                                callback: this.editRecord.bind(this, record),
+                                disabled: false,
+                                disabledTips: ``,
+                            }}
+                            onDelete={{
+                                callback: this.deleteRecord.bind(this, record),
+                                disabled: false,
+                                disabledTips: ``,
+                            }}
+                            directMenu={['delete', 'edit']}
+                        />;
                     }
                 },
             ];

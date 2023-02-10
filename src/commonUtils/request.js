@@ -1,6 +1,9 @@
 import axios from 'axios';
 import qs from 'qs';
 
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
 export default function request(url, options = {}) {
     // contentType 默认值: application/json
     // application/x-www-form-urlencoded
@@ -15,28 +18,26 @@ export default function request(url, options = {}) {
         data: needUrlEncoded ? qs.stringify(options.data || {}) : JSON.stringify(options.data || {}),
         timeout: options.timeout || 30000, // 超时时间 30 秒
         responseType: options.responseType || 'json', // 表示服务器响应的数据类型
+        cancelToken: source.token,
     };
 
     return new Promise((resolve, reject) => {
         axios(ajaxOption)
-            .then(({data, status}) => { // data就是后端接口返回的整体
-                if(200 === status) {
-                    const {status} = data || {};
-                    if(400 === status) {
-                        // 未登录
-                        // window.location.href = `/login?redirect=${encodeURIComponent(location.href)}`;
-                        window.location.href = `/login`;
-                        return;
-                    }
-                    resolve(data || {});
-                }else{
-                    // 非200响应码，说明不是前端想要的返回，请求出现了问题
-                    reject(`响应异常(response code: ${status})`);
+            .then(({data, status}) => {
+                // 非200响应码，说明不是前端想要的返回，请求出现了问题
+                if( 200 !== status) return reject(`响应异常(response code: ${status})`);
+
+                const {status: xhrStatus} = data || {};
+                // 400 是未登录，其他就正常返回
+                if(400 !== xhrStatus) return resolve(data || {});;
+
+                source.cancel('请重新登录');
+                if(location.pathname !== '/admin/login') { // 未登录
+                    window.location.href = `/admin/login?redirect=${encodeURIComponent(location.href)}`;
                 }
             })
             .catch(error => {
-                console.error(error.message);
-                reject(error.message || `请求异常`);
+                reject(error?.message || `请求异常`);
             });
     });
 }

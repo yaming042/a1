@@ -54,14 +54,21 @@ class UserDetail extends Component {
     }
     // 保存
     onSubmit() {
-        const {onOk} = this.props,
+        let {onOk} = this.props,
             {userInfo} = this.state,
-            isNew = !userInfo?.uid;
+            isNew = !userInfo?.uid,
+            url = isNew ? '/user/add' : '/user/update',
+            method = isNew ? 'POST' : 'PUT',
+            postData = {url, method}
 
         this.formRef.current.validateFields().then(values => {
             this.setState({inRequest: true});
 
-            this.postUserInfo(values).then(respond => {
+            postData['data'] = {...values};
+            if(!isNew) {
+                postData['data']['id'] = userInfo.uid;
+            }
+            this.postUserInfo(postData).then(respond => {
                 message.success(`${isNew ? '新建' : '更新'}用户成功`);
                 onOk && onOk(true);
             }).catch(e => {
@@ -71,13 +78,13 @@ class UserDetail extends Component {
         }).catch(e => {});
     }
 
-    postUserInfo(postData) {
+    postUserInfo(options) {
         return new Promise((resolve, reject) => {
-            request('/user/add', {
-                method: 'POST',
-                data: postData,
+            request(options.url, {
+                method: options.method,
+                data: options.data,
             }).then(response => {
-                if(response && 0 === response.status) {
+                if(0 === response?.status) {
                     return resolve(response.data || {});
                 }
                 reject(`响应异常`);
@@ -96,7 +103,7 @@ class UserDetail extends Component {
             statusMap = {'0': '冻结', '1': '激活', '2': '未激活', '3': '异常'},
             userName = userInfo?.username || '',
             isNew = !userInfo.uid,
-            unActive = userInfo.status,
+            unActive = userInfo.status+'' === '2',
             initialValues = this.getFormInitialValue();
 
         return (
