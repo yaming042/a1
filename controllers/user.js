@@ -54,9 +54,10 @@ class UserController{
     async addUser(req, res) {
         const defaultPwd = uuidv4();
         const uid = uuidv4().replace(/-/g, '');
+        const currentUser = req.cookies.username || '';
 
         const {email, phone, username, company, password=defaultPwd, sendMail=false} = req.body;
-        const postData = {uid, email, phone, username, company, password};
+        const postData = {uid, email, phone, username, company, password, created_by: currentUser, updated_by: currentUser};
         const re = await UserModel.addUser(postData);
         let ret = {...re};
         if(sendMail) {

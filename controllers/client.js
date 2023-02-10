@@ -21,7 +21,7 @@ const sendActiveLink = async (uid, email) => {
 
     try{
         const subject = `欢迎使用A1`;
-        const sendEmailSuccess = await MailModel({to: email, subject, emailContent});
+        const sendEmailSuccess = await MailModel({to: email, subject, content: emailContent});
         if(sendEmailSuccess) {
             RedisSet(uid, code, config.timeLimit.userValidateTime);
         }

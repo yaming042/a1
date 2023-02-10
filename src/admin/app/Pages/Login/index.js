@@ -40,53 +40,48 @@ class Login extends React.Component {
         return (
             <div className={styles['container']}>
                 <div className={styles['box']}>
-                    <Row>
-                        <Col span={12} className={styles['left']}></Col>
-                        <Col span={12} className={styles['right']}>
-                            <h3>欢迎使用A1</h3>
-                            <div className={styles['form']}>
-                                <Form
-                                    name="login"
-                                    onFinish={this.onFinish.bind(this)}
-                                    onFinishFailed={this.onFinishFailed.bind(this)}
-                                >
-                                    <Form.Item
-                                        name="username"
-                                        label="用户名"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: "请填写用户名"
-                                            }
-                                        ]}
-                                        {...FormItemLayout}
-                                    >
-                                        <Input placeholder="请填写用户名" />
-                                    </Form.Item>
-                                    <Form.Item
-                                        name="password"
-                                        label="密码"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: "请填写密码"
-                                            }
-                                        ]}
-                                        {...FormItemLayout}
-                                    >
-                                        <Input type="password" placeholder="请填写密码" />
-                                    </Form.Item>
-                                    <Form.Item
-                                        wrapperCol={{span: 24}}
-                                    >
-                                        <div className={styles['submit']}>
-                                            <Button type="primary" htmlType="submit">登录</Button>
-                                        </div>
-                                    </Form.Item>
-                                </Form>
-                            </div>
-                        </Col>
-                    </Row>
+                    <h3>欢迎使用AnyOne</h3>
+                    <div className={styles['form']}>
+                        <Form
+                            name="login"
+                            onFinish={this.onFinish.bind(this)}
+                            onFinishFailed={this.onFinishFailed.bind(this)}
+                        >
+                            <Form.Item
+                                name="username"
+                                label="用户名"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "请填写用户名"
+                                    }
+                                ]}
+                                {...FormItemLayout}
+                            >
+                                <Input placeholder="请填写用户名" />
+                            </Form.Item>
+                            <Form.Item
+                                name="password"
+                                label="密码"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "请填写密码"
+                                    }
+                                ]}
+                                {...FormItemLayout}
+                            >
+                                <Input type="password" placeholder="请填写密码" />
+                            </Form.Item>
+                            <Form.Item
+                                wrapperCol={{span: 24}}
+                            >
+                                <div className={styles['submit']}>
+                                    <Button type="primary" htmlType="submit">登录</Button>
+                                </div>
+                            </Form.Item>
+                        </Form>
+                    </div>
                 </div>
             </div>
         );

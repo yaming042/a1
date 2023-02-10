@@ -18,8 +18,8 @@ export default (props) => {
             visible={true}
             title={null}
             closable={false}
-            onOk={() => {}}
-            onCancel={() => {}}
+            onOk={props.onOk}
+            onCancel={props.onCancel}
             footer={null}
             width={width}
             bodyStyle={{height: height, padding:0}}

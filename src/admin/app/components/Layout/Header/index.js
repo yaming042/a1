@@ -1,5 +1,6 @@
 import React from 'react';
-import {Row, Col, Button, Menu, Dropdown, Select} from 'antd';
+import {Row, Col, Button, Menu, Dropdown} from 'antd';
+import IconSvg from '@commonUtils/IconSvg';
 import {connect} from 'react-redux';
 
 // 导入样式
@@ -47,7 +48,7 @@ class Comp extends React.Component {
                     <Col span={18} className={`${styles['item']}`}>
                         <div className={styles['search']}>
                             <div className={styles['input']}>
-                                <i className="iconfont icon-search"></i>
+                                <IconSvg name="icon-search" />
                                 <input type="text" placeholder="搜索" />
                             </div>
                         </div>

@@ -1,9 +1,6 @@
 import {
-    COLLAPSED,
-    SET_BIZ_ID,
-    SET_AUTH_RESOURCE,
-    SET_BIZ_DATA
-} from './../utils/constant';
+    TEST
+} from './../utils/reduxConstant';
 
 const initState = {
     collapsed: false,
@@ -14,21 +11,9 @@ const initState = {
 
 function demo(state = initState, action) {
     switch (action.type) {
-            case COLLAPSED:
+            case TEST:
                 return Object.assign({}, state, {
                     collapsed: action.value
-                });
-            case SET_BIZ_ID:
-                return Object.assign({}, state, {
-                    selectedBizId: action.value
-                });
-            case SET_AUTH_RESOURCE:
-                return Object.assign({}, state, {
-                    authResources: action.value
-                });
-            case SET_BIZ_DATA:
-                return Object.assign({}, state, {
-                    bizList: action.value
                 });
             default:
                 return state;

@@ -1,0 +1,139 @@
+.permission-container{
+    position: relative;
+    width: 100%;
+    padding: 0 16px 16px 16px;
+    display: flex;
+
+    &>div{
+        width: 50%;
+    }
+
+    .input-container{
+        position: relative;
+
+        :global .ant-tabs-content{
+            .ant-checkbox-group-item{
+                display: flex;
+                align-items: self-start;
+                margin: 6px 0;
+            }
+        }
+
+        :global .ant-tabs-tab{
+            padding: 12px;
+
+            &+.ant-tabs-tab{
+                margin: 0 0 0 10px;
+            }
+        }
+
+        .tab-item{
+            position: relative;
+
+            .empty{
+                position: relative;
+                text-align: center;
+                padding: 12px;
+                color: #ccc;
+            }
+        }
+    }
+
+    .output-container{
+        position: relative;
+        padding-left: 16px;
+        display: flex;
+        flex-direction: column;
+
+        .output-title{
+            position: relative;
+            padding: 12px 0;
+            margin-bottom: 16px;
+
+            &::before{
+                position: absolute;
+                width: 100%;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                border-bottom: 1px solid #f0f0f0;
+                content: '';
+            }
+        }
+
+        .output-content{
+            position: relative;
+            flex-grow: 1;
+            overflow: auto;
+
+            .items{
+                position: relative;
+                display: flex;
+                flex-direction: column;
+
+                .item{
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    padding: 2px 4px;
+                    cursor: pointer;
+
+                    .label{
+                        position: relative;
+                        display: flex;
+                        flex-grow: 1;
+                        overflow: hidden;
+
+                        &>div{
+                            position: relative;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+
+                            svg{
+                                margin-right: 4px;
+                            }
+                        }
+                    }
+
+                    .delete{
+                        position: relative;
+                        width: 24px;
+                        height: 24px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                        cursor: pointer;
+
+                        &:hover{
+                            color: red;
+                        }
+                    }
+
+                    &:hover{
+                        background-color: #e6f7ff;
+                    }
+                }
+            }
+
+            &::-webkit-scrollbar{
+                width:6px;
+                height:16px;
+                background-color:#eee;
+                border-radius: 4px;
+            }
+            &::-webkit-scrollbar-track{
+                -webkit-box-shadow:inset 0 0 6px rgba(160, 160, 160, 0.3);
+                border-radius:10px;
+                background-color:#F5F5F5;
+            }
+            &::-webkit-scrollbar-thumb{
+                border-radius:10px;
+                -webkit-box-shadow:inset 0 0 6px rgba(88, 88, 88, 0.3);
+                background-color:#ccc;
+            }
+        }
+    }
+}

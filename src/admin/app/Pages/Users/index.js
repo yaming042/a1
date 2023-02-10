@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from './index.scss';
 import {Button, Input, Table, message, Modal} from 'antd';
+import dayjs from 'dayjs';
 import Loading from '@commonUtils/Loading';
 import UserDetail from './components/UserDetail';
+import IconSvg from '@commonUtils/IconSvg';
 import request from '@commonUtils/request';
 import SearchComponent from '@commonUtils/Search';
 import {ObjectUtil} from '@commonUtils/utils';
@@ -25,6 +27,12 @@ export default class Users extends React.Component{
 
     componentDidMount() {
         message.destroy();
+
+        this.initPageList();
+    }
+
+    // 初始化列表
+    initPageList() {
         this.getTableList().then(respond => {
             this.setState({
                 inRequest: false,
@@ -35,7 +43,6 @@ export default class Users extends React.Component{
             this.setState({inRequest: false});
         });
     }
-
     // 获取列表数据
     getTableList() {
         // request返回前需要对数据进行边界和容错处理，因为后续的数据会只直接存储到state中，所以如果不处理就可能出现错误
@@ -81,23 +88,29 @@ export default class Users extends React.Component{
     // 删除数据
     deleteRecord(record, e) {
         e.stopPropagation();
-        const {uid, username} = record;
+        const {uid, username} = record,
+            that = this;
 
         confirm({
             className: '_confirm-dialog',
-            title: <span>确定要删除用户 <b>{username || uid || ''}</b> 吗？</span>,
-            icon: <i className="iconfont icon-warning"></i>,
-            content: <p className='confirm-msg confirm-warn-msg'>如果不确定是否要从系统中删除该用户，建议先冻结该用户</p>,
+            title: <div className='_confirm-dialog-title'><IconSvg name="icon-warning" /><span>确定要删除用户 <b>{username || uid || ''}</b> 吗？</span></div>,
+            icon: null,
+            content: <p className='_confirm-dialog-content confirm-warn-msg'>如果不确定是否要从系统中删除该用户，建议先冻结该用户</p>,
             onOk() {
-                return confirmDelete();
+                return new Promise(async (resolve, reject) => {
+                    await confirmDelete(uid);
+                    that.initPageList();
+
+                    resolve();
+                });
             },
             onCancel() {},
         });
 
         function confirmDelete(id) {
-            message.destroy();
             return new Promise((resolve, reject) => {
                 if(!id) reject();
+
                 request(`/user/delete/${id}`, {method: 'delete'}).then(respond => {
                     if(respond && respond.status === 0) {
                         message.success(`删除用户成功`);
@@ -114,7 +127,11 @@ export default class Users extends React.Component{
     }
 
     // 弹框确定回调
-    onOk() {}
+    onOk(refresh=false) {
+        this.onCancel();
+
+        refresh && this.initPageList();
+    }
     // 弹框取消回调
     onCancel() {
         this.setState({
@@ -125,87 +142,79 @@ export default class Users extends React.Component{
     }
 
     render(){
-        const {inRequest, userList, dialogVisible, currentReadOnly, currentData} = this.state;
-        const columns = [
-            {
-                title: 'ID',
-                dataIndex: 'uid',
-                ellipsis: true,
-                width: 50,
-                render: (text, record) => {
-                    return text;
-                }
-            },
-            {
-                title: '用户名',
-                dataIndex: 'username',
-                ellipsis: true,
-                width: 100,
-                render: (text, record) => {
-                    return text;
-                }
-            },
-            {
-                title: '邮箱',
-                dataIndex: 'email',
-                ellipsis: true,
-                width: 100,
-                render: (text, record) => {
-                    return text;
-                }
-            },
-            {
-                title: '手机号',
-                dataIndex: 'phone',
-                ellipsis: true,
-                width: 100,
-                render: (text, record) => {
-                    return text;
-                }
-            },
-            {
-                title: '公司',
-                dataIndex: 'company',
-                ellipsis: true,
-                width: 150,
-                render: (text, record) => {
-                    return text;
-                }
-            },
-            {
-                title: '状态',
-                dataIndex: 'status',
-                ellipsis: true,
-                width: 80,
-                render: (text, record) => {
-                    return text;
-                }
-            },
-            {
-                title: '创建时间',
-                dataIndex: 'created_at',
-                ellipsis: true,
-                width: 120,
-                render: (text, record) => {
-                    return text;
-                }
-            },
-            {
-                title: '',
-                dataIndex: 'opt',
-                width: 100,
-                render: (text, record) => {
-                    return <div className={styles['table-opt-td']} onClick={this.deleteRecord.bind(this, record)}>
-                        <Button shape="circle" danger size="small">
-                            <i className="iconfont icon-delete"></i>
-                        </Button>
-                        <Button type="primary" shape="circle" size="small" onClick={this.editRecord.bind(this, record)}>
-                            <i className="iconfont icon-edit-2"></i>
-                        </Button>
-                    </div>;
-                }
-            },
-        ];
+        const {inRequest, userList, dialogVisible, currentReadOnly, currentData} = this.state,
+            statusMap = {'0': '冻结', '1': '激活', '2': '未激活', '3': '异常'},
+            columns = [
+                {
+                    title: '用户名',
+                    dataIndex: 'username',
+                    ellipsis: true,
+                    width: 100,
+                    render: (text, record) => {
+                        return text;
+                    }
+                },
+                {
+                    title: '邮箱',
+                    dataIndex: 'email',
+                    ellipsis: true,
+                    width: 100,
+                    render: (text, record) => {
+                        return text;
+                    }
+                },
+                {
+                    title: '手机号',
+                    dataIndex: 'phone',
+                    ellipsis: true,
+                    width: 100,
+                    render: (text, record) => {
+                        return text;
+                    }
+                },
+                {
+                    title: '公司',
+                    dataIndex: 'company',
+                    ellipsis: true,
+                    width: 150,
+                    render: (text, record) => {
+                        return text;
+                    }
+                },
+                {
+                    title: '状态',
+                    dataIndex: 'status',
+                    ellipsis: true,
+                    width: 80,
+                    render: (text, record) => {
+                        return statusMap[text.toString()] || '--';
+                    }
+                },
+                {
+                    title: '创建时间',
+                    dataIndex: 'created_at',
+                    ellipsis: true,
+                    width: 120,
+                    render: (text, record) => {
+                        return dayjs(text).format('YYYY-MM-DD HH:mm:ss');
+                    }
+                },
+                {
+                    title: '',
+                    dataIndex: 'opt',
+                    width: 100,
+                    render: (text, record) => {
+                        return <div className={styles['table-opt-td']} onClick={this.deleteRecord.bind(this, record)}>
+                            <Button shape="circle" danger size="small">
+                                <IconSvg name="icon-delete" />
+                            </Button>
+                            <Button type="primary" shape="circle" size="small" onClick={this.editRecord.bind(this, record)}>
+                                <IconSvg name="icon-edit-2" />
+                            </Button>
+                        </div>;
+                    }
+                },
+            ];
 
         return (
             <div className={styles['container']}>

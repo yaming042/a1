@@ -21,37 +21,23 @@ body, html{
 
 
     .box{
-        width: 600px;
-        height: 320px;
+        width: 320px;
         background-color: rgba(239,239, 239, 0.5);
         border-radius: 10px;
 
-        :global .ant-row{
-            height: 100%;
+        h3{
+            text-align: center;
+            margin: 24px auto;
         }
 
-        .left{
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            background-image: url('../../../../../public/images/bg2.jpeg');
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
+        .form{
+            position: relative;
+            width: 90%;
+            margin: 0 auto;
         }
 
-        .right{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-
-            .form{
-                position: relative;
-                width: 90%;
-            }
-
-            .submit{
-                text-align: center;
-            }
+        .submit{
+            text-align: center;
         }
     }
 }

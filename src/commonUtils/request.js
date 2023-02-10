@@ -2,7 +2,9 @@ import axios from 'axios';
 import qs from 'qs';
 
 export default function request(url, options = {}) {
-    const isJson = options.contentType === 'application/json';
+    // contentType 默认值: application/json
+    // application/x-www-form-urlencoded
+    const needUrlEncoded = options.contentType === 'application/x-www-form-urlencoded';
     let ajaxOption = {
         url,
         method: options.method || 'GET', // 默认 get
@@ -10,7 +12,7 @@ export default function request(url, options = {}) {
         headers: {
             'Content-Type': options.contentType || 'application/json'
         },
-        data: isJson ? JSON.stringify(options.data || {}) : qs.stringify(options.data || {}), // 'PUT', 'POST', 和 'PATCH'时body的参数
+        data: needUrlEncoded ? qs.stringify(options.data || {}) : JSON.stringify(options.data || {}),
         timeout: options.timeout || 30000, // 超时时间 30 秒
         responseType: options.responseType || 'json', // 表示服务器响应的数据类型
     };

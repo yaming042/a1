@@ -110,10 +110,17 @@ const string = () => {
         return hash & 0x7fffffff;
     };
 
+    // 邮箱校验
+    const isEmail = email => (/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/).test(email);
+    // 手机校验
+    const isMobile = phone => (/^((13[0-9])|(14[0-9])|(15([0-9]))|(16[0-8])|(17[0-8])|(18[0-8])|(19[0-9]))\d{8}$/).test(phone);
+
     return {
         hyphenToHump,
         humpToHyphen,
-        hashCode
+        hashCode,
+        isEmail,
+        isMobile,
     };
 };
 

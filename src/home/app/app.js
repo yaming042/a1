@@ -6,10 +6,10 @@ import HeaderComponent from './components/Layout/Header';
 
 const {Header, Content} = Layout;
 
-import Home from './Index';
+import Home from './Index/home';
 import About from './Index/about';
 import Feedback from './Index/feedback';
-import {NotFound} from './NotFound';
+import NotFound from './NotFound';
 import Login from './Login';
 import Register from './Register';
 
@@ -17,23 +17,21 @@ const App = () => {
     return (
         <Router>
             <Switch>
+                <Route path={'/login'} exact component={Login} />
+                <Route path={'/register'} exact component={Register} />
+
                 <Route path={'/'}>
-                    <Route path={'/login'} exact component={Login} />
-                    <Route path={'/register'} exact component={Register} />
-                    <Route path={'/404'} exact component={NotFound} />
-                </Route>
-                <Route path={'/index'}>
                     <Layout style={{height: '100%'}}>
                         <Header className={styles['header']}>
                             <HeaderComponent />
                         </Header>
                         <Content className={styles['content']}>
                             <Switch>
-                                <Route path={'/index'} exact component={Home} />
-                                <Route path={'/index/about'} exact component={About} />
-                                <Route path={'/index/feedback'} exact component={Feedback} />
-                                
-                                <Route path={'/index/*'} component={NotFound} />
+                                <Route path={'/'} exact component={Home} />
+                                <Route path={'/about'} exact component={About} />
+                                <Route path={'/feedback'} exact component={Feedback} />
+
+                                <Route path={'/*'} component={NotFound} />
                             </Switch>
                         </Content>
                     </Layout>

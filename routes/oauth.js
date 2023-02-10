@@ -8,7 +8,7 @@ const app = {
     client_secret: 'abc',
     callback: 'http://localhost:5002/oauth/callback',
     name: '测试App',
-    icon: 'http://localhost:3333/images/d2.png'
+    icon: 'http://localhost:3333/images/bg1.png'
 };
 const sso = {
     tokenUrl: 'http://localhost:3333/oauth/token',
@@ -61,7 +61,7 @@ const tokenDb = {
 
 /* GET home page. */
 router.get('/authorize', function (req, res, next) {
-    // xxxxx/oauth/authorize?response_type=oken&client_id=1234&redirect_uri=xxxxx
+    // xxxxx/oauth/authorize?response_type=token&client_id=1234&redirect_uri=xxxxx
     // 拿到参数，跳转到登录页面
     /*
         1. 判断是否登录，如果登录，那么就展示授权，如果没有登录，那么就展示登录

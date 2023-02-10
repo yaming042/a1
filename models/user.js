@@ -32,9 +32,9 @@ class User {
         });
     }
     // 插入用户
-    addUser({uid, email, phone, username, password, company}) {
-        const prefixSql = "INSERT INTO `user`(`uid`, `email`, `phone`, `username`, `company`, `password`) VALUES ";
-        const sql = `${prefixSql}('${uid}', '${email}', '${phone}', '${username}', '${company}', '${password}')`;
+    addUser({uid, email, phone, username, password, company, created_by, c}) {
+        const prefixSql = "INSERT INTO `user`(`uid`, `email`, `phone`, `username`, `company`, `password`, `created_by`, `updated_by`) VALUES ";
+        const sql = `${prefixSql}('${uid}', '${email}', '${phone}', '${username}', '${company}', '${password}', '${created_by}', '${created_by}')`;
         return new Promise((resolve, reject) => {
             mysql.query(sql, (error, result, fields) => {
                 if (error) return resolve(config.responseError.modelError);
@@ -60,7 +60,7 @@ class User {
 
     // 删除用户
     deleteUser(id) {
-        let sql = "DELETE FROM `user` WHERE `uid`=" + id;
+        let sql = "DELETE FROM `user` WHERE `uid`='" + id + "'";
         return new Promise((resolve, reject) => {
             mysql.query(sql, (error, result, fields) => {
                 if (error) return resolve(config.responseError.modelError);

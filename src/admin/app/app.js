@@ -37,7 +37,7 @@ const AdminLayout = (props) => {
                         {
                             routers.map((item, k) => {
                                 return (
-                                    <Route key={item.id} path={item.id} component={ item.component } />
+                                    <Route key={item.id} path={item.key} component={ item.component } />
                                 );
                             })
                         }
@@ -62,13 +62,12 @@ class App extends React.Component {
             this.setState({appLoading: false});
             if(response && response.status === 0) {
                 this.setState({
-                    routers: (config.routeCofig || []).slice(0)
+                    routers: (config.routeConfig || []).slice(0)
                 });
             }
         }).catch(error => {
             this.setState({appLoading: false});
         });
-        
     }
 
     // 初始化应用，请求权限相关的数据
@@ -89,6 +88,7 @@ class App extends React.Component {
     render() {
         const {appLoading, routers} = this.state;
         const {collapsed} = this.props;
+        const {webConfig: {baseUrl=''}} = config || {};
 
         const adminProps = {loading: appLoading, routers, collapsed};
 
@@ -103,8 +103,8 @@ class App extends React.Component {
                                 <Route path="/login" exact component={Login} />
                                 <Route path="/404" exact component={NotFound} />
                                 <Route path="/403" exact component={Forbidden} />
-                                <Route path={'/admin'} render={props => <AdminLayout {...props} {...adminProps} />} />
-                                <Redirect exact path="/" to="/admin/users" />
+                                <Redirect exact path={`${baseUrl}/`} to={`${baseUrl}/users`} />
+                                <Route path={baseUrl} render={props => <AdminLayout {...props} {...adminProps} />} />
                             </Switch>
                         </Router>
                 }

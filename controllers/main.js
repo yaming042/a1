@@ -18,7 +18,7 @@ class MainController{
     async validate(req, res) {
         const sessionId = req.cookies.SESSIONID || '';
         const hasLogin = await RedisGet(sessionId);
-        let ret = {status: 0, data: {}, message: 'sucess'};
+        let ret = {status: 0, data: {}, message: 'success'};
         if(!hasLogin) {
             ret = {status: 400, data: {}, message: 'not login'};
         }
@@ -33,7 +33,7 @@ class MainController{
             ret = {status: -1, data: {}, message: '登录失败'};
         }else{
             let {status, uid} = user[0] || {};
-            if(status !== 2) {
+            if(status !== 1) {
                 ret = {status: -1, data: {}, message: '用户状态异常'};
             }else{
                 ret = {status: 0, data: {uid: uid}, message: 'success'};

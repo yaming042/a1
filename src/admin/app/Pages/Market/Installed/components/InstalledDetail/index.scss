@@ -1,0 +1,147 @@
+.body-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+
+    .swiper{
+        position: relative;
+        width: calc(100% - 260px);
+    }
+    .introduce{
+        position: relative;
+        width: 240px;
+        margin-left: 20px;
+
+        .item{
+            position: relative;
+            margin-bottom: 18px;
+
+            &.header{
+                position: relative;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #F9FAFB;
+                padding-bottom: 12px;
+
+                .icon{
+                    position: relative;
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 6px;
+
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                    }
+                }
+
+                .name{
+                    color: #19242e;
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+            }
+
+            .item-title{
+                position: relative;
+                color: #333;
+                font-weight: 500;
+                margin-bottom: 4px;
+            }
+
+            .item-content{
+                position: relative;
+                color: #566676;
+            }
+        }
+
+    }
+}
+
+.hot-form{
+    position: relative;
+    padding: 32px 0;
+    width: 100%;
+}
+
+.permission-container{
+    position: relative;
+
+    .permission-list{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+
+        .permission-item{
+            position: relative;
+            display: flex;
+            background: #d9d9d9;
+            padding: 2px 6px 2px 12px;
+            border-radius: 14px;
+            cursor: pointer;
+
+            .permission-label{
+                position: relative;
+                max-width: 100px;
+
+                &>div{
+                    position: relative;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+
+                    svg{
+                        margin-right: 4px;
+                    }
+                }
+            }
+
+            .permission-close{
+                position: relative;
+                opacity: 0;
+                margin-left: 2px;
+                transition: all 0.3;
+            }
+
+            &:hover{
+                .permission-close{
+                    opacity: 1;
+                    color: red;
+                }
+            }
+        }
+    }
+
+    :global(.ant-input){
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #d9d9d9;
+        box-shadow: none;
+    }
+
+    &:after{
+        content: '';
+        display: block;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 2px solid #1890ff;
+        bottom: 0px;
+        box-sizing: content-box;
+        margin: 0px;
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    }
+
+    &:focus-within{
+        &:after{
+            transform: scaleX(1);
+        }
+    }
+}

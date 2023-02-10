@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Popover, Checkbox, Select, Input, InputNumber, Radio, DatePicker} from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import styles from './index.scss';
 
 const {RangePicker} = DatePicker;
@@ -152,7 +152,7 @@ class Comp extends Component {
                     disabledTime={null}
                     showTime={{
                         hideDisabledOptions: true,
-                        defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
+                        defaultValue: [dayjs('00:00:00', 'HH:mm:ss'), dayjs('11:59:59', 'HH:mm:ss')],
                     }}
                     format="YYYY-MM-DD HH:mm:ss"
                 />
@@ -266,7 +266,7 @@ class Comp extends Component {
         // 获取更多筛选项可用字段
         const moreSearchOptions = this.getMoreSearchFields(searchValue, searchOptions);
 
-        console.log(1, searchValue, searchOptions, moreSearchOptions);
+        // console.log(1, searchValue, searchOptions, moreSearchOptions);
 
         return (
             <div className={styles['container']}>

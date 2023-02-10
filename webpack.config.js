@@ -7,8 +7,8 @@ module.exports = {
     mode: 'development',
     entry: {
         admin: [path.resolve(__dirname, './src/admin/app/index.js')],
-        // portal: [path.resolve(__dirname, './src/portal/app/index.js')],
-        // home: [path.resolve(__dirname, './src/home/app/index.js')],
+        portal: [path.resolve(__dirname, './src/portal/app/index.js')],
+        home: [path.resolve(__dirname, './src/home/app/index.js')],
     },
     output: {
         path: path.resolve(__dirname, './public/dist'),
@@ -19,7 +19,8 @@ module.exports = {
         extensions: ['.js', '.jsx', '.sass', '.less', '*'],
         // 配置别名
         alias: {
-            '@commonUtils': path.join(__dirname, './src/commonUtils')
+            '@commonUtils': path.join(__dirname, './src/commonUtils'),
+            '@src': path.join(__dirname, './src'),
         }
     },
     module: {
@@ -109,6 +110,13 @@ module.exports = {
                     // 打包到 image 文件下
                     filename: 'public/asset/[contenthash][ext][query]',
                 }
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {loader: 'svg-sprite-loader'},
+                    'svgo-loader'
+                ]
             }
         ]
     },
@@ -146,14 +154,20 @@ module.exports = {
                 target: config.apiProxy || ''
             },
             '/**': {
-                target: '/admin.html', //default target
+                target: '/home.html', //default target
                 secure: false,
                 bypass: function (req, res, opt) {
-                    if (req.path.indexOf('/image/') !== -1 || req.path.indexOf('/css/') !== -1 || req.path.indexOf('/js/') !== -1) {
+                    if (req.path.indexOf('/images/') !== -1 || req.path.indexOf('/css/') !== -1 || req.path.indexOf('/js/') !== -1) {
                         return req.path;
                     }
 
-                    return '/admin.html';
+                    if(req.path.indexOf('/admin') !== -1) {
+                        return '/admin.html';
+                    }else if(req.path.indexOf('/portal') !== -1) {
+                        return '/portal.html';
+                    }
+
+                    return '/home.html';
                 }
             }
         },

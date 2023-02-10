@@ -38,11 +38,6 @@
     overflow: hidden;
 }
 
-:global .iconfont{
-    cursor: pointer;
-    font-size: 12px;
-}
-
 .panel-loading{
     position: absolute;
     width: 100%;
@@ -70,4 +65,26 @@
         -ms-flex-direction: column;
             flex-direction: column;
     z-index: 0;
+}
+
+:global ._confirm-dialog{
+    position: relative;
+
+    ._confirm-dialog-title{
+        position: relative;
+        display: flex;
+        align-items: start;
+
+        .icon{
+            color: #faad14;
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+    }
+
+    ._confirm-dialog-content{
+        position: relative;
+    }
 }
